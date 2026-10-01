@@ -46,6 +46,16 @@ public enum HttpStatus {
         this.reasonPhrase = reasonPhrase;
     }
 
+    public static HttpStatus fromCode(int code) {
+        for (HttpStatus status : HttpStatus.values()) {
+            if (status.code == code) {
+                return status;
+            }
+        }
+        //Throwing an exception is not ideal but should be caught by the try-catch statements
+        throw new IllegalArgumentException("No matching HttpStatus for code: " + code);
+    }
+
     public int getCode() {
         return code;
     }
