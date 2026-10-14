@@ -1,5 +1,7 @@
 package models;
 
+import util.Util;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 public class HttpResponse {
     private String crlf = "\r\n";
     private BufferedReader reader;
+
 
     private String response;
     private byte[] responseBytes;
@@ -83,7 +86,7 @@ public class HttpResponse {
                 this.connection = line.substring(line.indexOf(":") + 1).trim();
                 break;
             default:
-                System.out.println("Unknown header: " + line); //TODO: Log unknown headers
+                System.out.println("Unknown header: " + line);
                 break;
         }
     }
@@ -94,11 +97,108 @@ public class HttpResponse {
             char[] bodyChars = new char[this.contentLength];
             reader.read(bodyChars, 0, this.contentLength);
             this.body = new String(bodyChars);
+
             System.out.println("Body: " + this.body);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error while parsing body: " + e.getMessage());
         }
     }
 
+    public String getCrlf() {
+        return crlf;
+    }
+
+    public void setCrlf(String crlf) {
+        this.crlf = crlf;
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public byte[] getResponseBytes() {
+        return responseBytes;
+    }
+
+    public void setResponseBytes(byte[] responseBytes) {
+        this.responseBytes = responseBytes;
+    }
+
+    public String getStatusLine() {
+        return statusLine;
+    }
+
+    public void setStatusLine(String statusLine) {
+        this.statusLine = statusLine;
+    }
+
+    public String getHttpVersion() {
+        return httpVersion;
+    }
+
+    public void setHttpVersion(String httpVersion) {
+        this.httpVersion = httpVersion;
+    }
+
+    public HttpStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(HttpStatus status) {
+        this.status = status;
+    }
+
+    public List<String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(List<String> headers) {
+        this.headers = headers;
+    }
+
+    public int getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getConnection() {
+        return connection;
+    }
+
+    public void setConnection(String connection) {
+        this.connection = connection;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 }
+

@@ -1,80 +1,133 @@
 package client;
 
+import com.google.gson.Gson;
+import gui.controllers.LoginController;
 import models.HttpRequest;
 import models.HttpResponse;
-import util.Util;
+import models.HttpStatus;
+import models.Pair;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class HttpClient {
+    private static HttpClient instance;
     Socket clientSocket;
+    private BufferedReader bufferedReader;
+    private BufferedWriter bufferedWriter;
 
     //TODO: Host and port to be stored in the scheduler.properties file
+    //TODO: Figure out what to put for host
+    //TODO: Figure out how to keep the connection alive on the client side
     public void startClient() {
         try {
-            clientSocket =  new Socket("localhost", 6173);
+            this.clientSocket =  new Socket("localhost", 9999);
+            this.bufferedReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.clientSocket.getOutputStream()));
             System.out.println("Connected to server");
 
-            //First we send a request to the server then get a response,
-            //so OutPutStream is first (writer), then InputStream (reader)
-
-            //BufferedWriter sends data
-            OutputStream outputStream = clientSocket.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-
-            //Sending the request
-            //TODO: Figure out what to put for host
-            HttpRequest request = new HttpRequest("GET", "/", "", "text/plain", "text/plain", "close", "Test");
-            sendHttpRequestObj(request);
-
-            //InputStream recieves data from the server
-            InputStream serverInputStream = clientSocket.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(serverInputStream));
-
-            //Response handler stuff here instead of reading the things manually
-            ResponseHandler responseHandler = new ResponseHandler(bufferedReader);
-            HttpResponse response = responseHandler.createResponseObj();
-
-
-            //Reads until an empty line is reached - until it reaches the body
-//            String line;
-//            int length = 0; //content length
-//            while (!(line = bufferedReader.readLine()).isEmpty()) {
-//                if (line.contains("Content-Length:")) {
-//                    length =  Integer.parseInt(line.split(":")[1].trim()); //Gets only the value of the length and stores it
-//                }
-//                System.out.println(line);
-//            }
-//
-//            //Reading the body
-//            char [] bodyChars = new char[length];
-//            bufferedReader.read(bodyChars, 0, length);
-//            System.out.println(new String(bodyChars));
-
-            clientSocket.close();
-        }
-        catch (IOException e) {
-            System.out.println("Error in startClient() method: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error in startClient() method");
+            e.printStackTrace();
         }
     }
 
-    private void sendHttpRequestObj(HttpRequest httpRequest) throws IOException {
+    /**
+     * Responsible for parsing a {@link HttpRequest} object into a format that can be sent to the server.
+     * @param httpRequest The {@link HttpRequest} object to be sent to the server.
+     */
+    public void sendHttpRequestObj(HttpRequest httpRequest) {
         try {
-            //BufferedWriter sends data
-            OutputStream outputStream = this.clientSocket.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+            System.out.println(httpRequest.getRequestLine());
 
             //Sending the request
-            bufferedWriter.write(httpRequest.getRequest());
-            bufferedWriter.write(httpRequest.getBody());
-            bufferedWriter.flush();
+            this.bufferedWriter.write(httpRequest.getRequest());
+            this.bufferedWriter.write(httpRequest.getBody());
+            this.bufferedWriter.flush();
 
         } catch (Exception e) {
             System.out.println("Error in sendHttpRequestObj() method: " + e.getMessage());
         }
     }
+
+    /**
+     * Responsible for reading the data send by the server and parsing it into a HttpResponse. It blocks
+     * the program/thread until a response is received.
+     * @return {@link HttpResponse}
+     */
+    public HttpResponse createResponse() {
+        return new ResponseHandler(this.bufferedReader).createResponseObj();
+    }
+
+    /**
+     * Responsible for handling the whole process of user login. Creates a response to be sent to the server and receives a response.
+     * Updates the UI accordingly
+     * @param username
+     * @param password
+     * @return {@link Pair}{@code <Boolean, String>} where the value is a boolean for if the login was successful, the key is a String to change the
+     * prompt label to if the value is unsuccessful
+     */
+    public Pair<Boolean, String> login(String username, String password) throws ExecutionException, InterruptedException {
+        //Use completable future as we are returning a value
+        CompletableFuture<Pair<Boolean, String>> future = CompletableFuture.supplyAsync(() -> {
+            Pair<Boolean, String> loginValid = null;
+            try {
+                createLoginRequest(username, password);
+                HttpResponse response = createResponse();
+
+                switch (response.getStatus()) {
+                    case ACCEPTED:
+                        loginValid = new Pair<Boolean, String>(true, "");
+                        break;
+                    case UNAUTHORIZED:
+                        loginValid =  new Pair<Boolean, String>(false, "Wrong username or password");
+                        break;
+                    default: //Assume some error has occurred
+                        loginValid =  new Pair<Boolean, String>(false, "An error has occurred, try again later");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error in login method");
+                e.printStackTrace();
+            }
+
+            return loginValid;
+        });
+
+        return future.get();
+    }
+
+    /**
+     *A method responsible solely for creating a HttpRequest object specific for user login
+     * and then sending the request to the server.
+     * @param username
+     * @param password
+     */
+    public void createLoginRequest(String username, String password) {
+        try {
+            String body = new Gson().toJson(Map.of(
+                    "username", username,
+                    "password", password
+            ));
+
+            HttpRequest request = new HttpRequest("POST", "/login", "", "text/plain", "application/json", "keep-alive", body);
+            sendHttpRequestObj(request);
+
+        } catch (Exception e) {
+            System.out.println("Error in createLoginRequest() method: " + e.getMessage());
+        }
+    }
+
+    //----- Getters and setters -----
+    public static HttpClient getInstance() {
+        if (instance == null) {
+            instance = new HttpClient();
+        }
+        return instance;
+    }
+
 
 }

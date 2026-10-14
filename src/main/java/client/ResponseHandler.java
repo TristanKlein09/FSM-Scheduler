@@ -1,6 +1,7 @@
 package client;
 
 import models.HttpResponse;
+import models.HttpStatus;
 
 import java.io.BufferedReader;
 
@@ -9,9 +10,6 @@ public class ResponseHandler {
 
     public ResponseHandler(BufferedReader reader) {
         this.reader = reader;
-
-        //After fix
-        HttpResponse response = createResponseObj();
     }
 
     public HttpResponse createResponseObj() {

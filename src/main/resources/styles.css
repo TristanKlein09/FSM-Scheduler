@@ -1,0 +1,9 @@
+:root {
+    /* Setting css variables */
+    -colour-error: #ff0000
+}
+
+.label-prompt-error {
+    -fx-text-fill: -colour-error;
+}
+

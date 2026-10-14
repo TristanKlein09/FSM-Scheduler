@@ -47,13 +47,18 @@ public enum HttpStatus {
     }
 
     public static HttpStatus fromCode(int code) {
-        for (HttpStatus status : HttpStatus.values()) {
-            if (status.code == code) {
-                return status;
+        try {
+            for (HttpStatus status : HttpStatus.values()) {
+                if (status.code == code) {
+                    return status;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Error while getting HttpStatus from code: " + e.getMessage());
         }
-        //Throwing an exception is not ideal but should be caught by the try-catch statements
-        throw new IllegalArgumentException("No matching HttpStatus for code: " + code);
+
+        //If null could be problematic, it will be caught by any try-catch
+        return null;
     }
 
     public int getCode() {
