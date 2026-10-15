@@ -1,9 +1,7 @@
 import client.HttpClient;
+import gui.GuiHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import java.io.*;
 
@@ -11,14 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setTitle("Login");
-        stage.show();
+        GuiHandler.getInstance().loadLoginView(stage);
     }
 
     public static void main(String[] args) throws IOException {
