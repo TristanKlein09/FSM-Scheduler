@@ -1,10 +1,8 @@
 package client;
 
 import com.google.gson.Gson;
-import gui.controllers.LoginController;
-import models.HttpRequest;
-import models.HttpResponse;
-import models.HttpStatus;
+import models.server.HttpRequest;
+import models.server.HttpResponse;
 import models.Pair;
 
 import java.io.*;
@@ -113,7 +111,7 @@ public class HttpClient {
                     "password", password
             ));
 
-            HttpRequest request = new HttpRequest("POST", "/login", "", "text/plain", "application/json", "keep-alive", body);
+            HttpRequest request = new HttpRequest("POST", "/models/login", "", "text/plain", "application/json", "keep-alive", body);
             sendHttpRequestObj(request);
 
         } catch (Exception e) {

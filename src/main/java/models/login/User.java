@@ -1,4 +1,4 @@
-package login;
+package models.login;
 
 public class User {
     private int id; //ID will be got from the database

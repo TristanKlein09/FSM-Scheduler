@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import models.HttpRequest;
 import models.Pair;
 
 import java.util.concurrent.ExecutionException;
@@ -28,10 +27,10 @@ public class LoginController {
      * @param text The text to change the labelPrompt to
      */
     private void labelPromptError(String text) {
-        labelPrompt.setText(text);
+        this.labelPrompt.setText(text);
         //We must remove any other style on the label
-        labelPrompt.getStyleClass().removeIf(str -> str.startsWith("label-prompt"));
-        labelPrompt.getStyleClass().add("label-prompt-error");
+        this.labelPrompt.getStyleClass().removeIf(str -> str.startsWith("label-prompt"));
+        this.labelPrompt.getStyleClass().add("label-prompt-error");
     }
 
     //----- On Action Methods -----
@@ -49,7 +48,8 @@ public class LoginController {
         Pair<Boolean, String> loginPair = httpClient.login(username, password);
 
         if (loginPair.key()) {
-            //We can log the user in
+            //Load the scheduler main view
+
         } else {
             labelPromptError(loginPair.value());
         }

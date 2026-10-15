@@ -1,7 +1,6 @@
 package client;
 
-import models.HttpResponse;
-import models.HttpStatus;
+import models.server.HttpResponse;
 
 import java.io.BufferedReader;
 

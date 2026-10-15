@@ -1,5 +1,6 @@
 package models;
 
+import models.server.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
