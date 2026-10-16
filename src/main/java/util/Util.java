@@ -2,6 +2,7 @@ package util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -39,11 +40,18 @@ public class Util {
      * @param value The value to change the property to.
      * @throws Exception {@code FileInputStream()} and {@code load()} require this.
      */
-    //TODO: Finish and screenshot this
     public static void changeProperty(String key, String value) throws Exception {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/scheduler.properties")); //Loading the .properties file
+        FileInputStream inputStream = new FileInputStream("src/main/resources/scheduler.properties");
+        properties.load(inputStream); //Loading the .properties file
+        inputStream.close();
+
         properties.setProperty(key, value);
+
+        //Save the updated properties back to the file
+        FileOutputStream outputStream = new FileOutputStream("src/main/resources/scheduler.properties");
+        properties.store(outputStream, "");
+        outputStream.close();
     }
 }
 

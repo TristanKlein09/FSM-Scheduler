@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import models.server.HttpRequest;
 import models.server.HttpResponse;
 import models.Pair;
+import util.Util;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,18 +18,40 @@ public class HttpClient {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    //TODO: Host and port to be stored in the scheduler.properties file
     //TODO: Figure out what to put for host
     //TODO: Figure out how to keep the connection alive on the client side
     public void startClient() {
         try {
-            this.clientSocket =  new Socket("localhost", 9999);
+            this.clientSocket =  new Socket(Util.retrieveProperty("server.ip"), Integer.parseInt(Util.retrieveProperty("server.port")));
             this.bufferedReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.clientSocket.getOutputStream()));
             System.out.println("Connected to server");
 
         } catch (Exception e) {
             System.out.println("Error in startClient() method");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *Responsible for disconnecting from the current server and connecting to a new server as specified by the {@code scheduler.properties}
+     * file. Closes the current client socket, and creates a new one.
+     */
+    public void changeServer() {
+        try {
+            //Closing connections and flushing
+            this.clientSocket.close(); //Closes the connection to the current server
+            this.bufferedWriter.flush();
+            this.bufferedWriter.close();
+            this.bufferedReader.close();
+
+            //Connecting to the new server
+            this.clientSocket =  new Socket(Util.retrieveProperty("server.ip"), Integer.parseInt(Util.retrieveProperty("server.port")));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.clientSocket.getOutputStream()));
+            System.out.println("Connected to server");
+        } catch (Exception e) {
+            System.out.println("Error in changeServer() method");
             e.printStackTrace();
         }
     }

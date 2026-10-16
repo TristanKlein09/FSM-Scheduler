@@ -70,7 +70,6 @@ public class LoginController {
     @FXML void onSettingsPress() throws IOException {
         GuiHandler guiHandler = GuiHandler.getInstance();
         guiHandler.loadLoginSettingsView();
-
     }
 
     @FXML void onAboutPress() {}
