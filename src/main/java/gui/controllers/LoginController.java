@@ -39,11 +39,6 @@ public class LoginController {
     //----- On Action Methods -----
 
     //TODO: Display some sort of loading animation when waiting for the server response
-
-    /**
-     * This method is called when the login button is pressed. It determines whether the user can sign in. If they can,
-     * it will load in the main view. Otherwise, it will inform the user that the login was unsuccessful.
-     */
     @FXML
     private void onLoginPress() throws ExecutionException, InterruptedException, IOException {
         System.out.println("Pressed Login Button");
