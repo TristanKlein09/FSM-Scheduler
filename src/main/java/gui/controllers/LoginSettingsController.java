@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import client.HttpClient;
 import gui.GuiHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,18 +37,41 @@ public class LoginSettingsController {
         this.tfPort.setText(Util.retrieveProperty("server.port").replace('"', ' ').trim());
     }
 
-    private void applySettings() {
+    /**
+     * Gets the values from the text fields and changes the corresponding property in the {@code scheduler.properties} file.
+     * It then changes the server to be connected to.
+     * @throws Exception Required by {@code changeProperty()}
+     */
+    private void applySettings() throws Exception {
+        String portValue = this.tfPort.getText();
+        String ipValue = this.tfIPAddress.getText();
 
+        Util.changeProperty("server.ip", ipValue);
+        Util.changeProperty("server.port", portValue);
+
+        HttpClient client = HttpClient.getInstance();
+        client.changeServer();
     }
 
     //----- On Action Methods -----
 
-    @FXML private void onApplyPress() {
-
+    /**
+     * Applies the current settings while keeping the window open.
+     * @throws Exception Required by {@code applySettings()}
+     */
+    @FXML private void onApplyPress() throws Exception {
+        applySettings();
     }
 
-    @FXML private void onOKPress() {
-
+    /**
+     * Applies the current settings and closes the Login Settings window.
+     * @throws Exception Required by {@code applySettings()}
+     */
+    @FXML private void onOKPress() throws Exception {
+        applySettings();
+        GuiHandler guiHandler = GuiHandler.getInstance();
+        Stage stage = (Stage) this.buttonCancel.getScene().getWindow();
+        guiHandler.closeView(stage);
     }
 
     /**
@@ -59,3 +83,6 @@ public class LoginSettingsController {
         guiHandler.closeView(stage);
     }
 }
+
+
+
