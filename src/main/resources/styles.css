@@ -1,9 +1,169 @@
 .root {
     /* Setting css variables */
-    -colour-error: #ff0000
+
+    /* ----- Colours ----- */
+
+    -primary: #03A9F4;
+    -primary-light: #B3E5FC;
+    -primary-dark: #0288D1;
+    -primary-hover: #05a2eb;
+    -primary-select: #0694d6;
+
+    -accent: #ffc107;
+
+    -colour-error: #ff1212;
+
+    -background: #fdfdfd;
+    -surface: #ffffff;
+    -divider: #dedede;
+    -darker: #cccccc;
+
+    -text-primary: #212121;
+    -text-secondary: #757575;
+}
+.anchor-pane {
+    -fx-background-color: -background;
 }
 
-.label-prompt-error {
+/* ----- Buttons ----- */
+.button {
+    -fx-background-color: -primary;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 2);
+    -fx-font-size: 14px;
+}
+
+.button:hover {
+    -fx-background-color: -primary-hover;
+}
+
+.button:pressed {
+    -fx-background-color: -primary-select;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0, 0.15), 3, 0, 0, 1);
+ }
+
+.button.login-button:disabled {
+    -fx-opacity: 1.0;
+}
+.login-button .progress-indicator {
+    -fx-progress-color: #000000;
+    -fx-opacity: 1.0;
+}
+
+/* ----- Text & Password Fields ----- */
+.text-field {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 2;
+}
+
+.text-field-error {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -colour-error transparent;
+    -fx-border-width: 1;
+}
+
+.password-field {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+}
+
+.password-field:focused {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 2;
+}
+
+.password-field-error {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -colour-error transparent;
+    -fx-border-width: 1;
+}
+
+/* ----- LABELS ----- */
+
+.label-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+}
+
+.label-subtitle {
+    -fx-font-size: 20px;
+    -fx-text-fill: -text-primary;
+}
+
+.label-info {
+    -fx-font-size: 16px;
+    -fx-text-fill: -text-primary;
+}
+
+.label-error {
     -fx-text-fill: -colour-error;
 }
 
+/* ----- MENU ----- */
+.menu-bar {
+    -fx-background-color: -divider;
+    -fx-background-radius: 0 0 12 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 6, 0, 0, 2);
+    -fx-text-fill: -text-primary;
+}
+
+.menu {
+    -fx-text-fill: -text-primary;
+}
+.menu > .label {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 13px;
+}
+
+.menu:hover {
+    -fx-background-color: -darker;
+}
+.menu:hover > .label {
+    -fx-text-fill: -text-primary;
+}
+
+/* Pressed */
+.menu:armed {
+    -fx-background-color: -darker;
+}
+.menu:armed > .label {
+    -fx-text-fill: -text-primary;
+}
+
+.menu:showing {
+    -fx-background-color: -darker;
+}
+.menu:showing > .label {
+    -fx-text-fill: -text-primary;
+}
+
+.menu-item:focused {
+    -fx-background-color: -darker;
+}
+.menu-item:focused > .label{
+    -fx-text-fill: -text-primary;
+}
+
+.menu-item {
+}
+
+.separator {
+    -fx-background-color: -divider;
+}
+
+.progress-indicator {
+    -fx-progress-color: black;
+}
