@@ -48,6 +48,7 @@
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-border-color: transparent transparent -text-primary transparent;
     -fx-border-width: 1;
+    -fx-font-size: 14px;
 }
 
 .text-field:focused {
