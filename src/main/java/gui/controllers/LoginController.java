@@ -31,9 +31,15 @@ public class LoginController {
      */
     private void labelPromptError(String text) {
         this.labelPrompt.setText(text);
-        //We must remove any other style on the label
-        this.labelPrompt.getStyleClass().removeIf(str -> str.startsWith("label-prompt"));
         this.labelPrompt.getStyleClass().add("label-prompt-error");
+    }
+
+    /**
+     * This method is used to change the text fields colour to show the user that an error has occurred.
+     */
+    private void tfError() {
+        this.tfPassword.getStyleClass().add("text-field-error");
+        this.tfUsername.getStyleClass().add("text-field-error");
     }
 
     //----- On Action Methods -----
@@ -59,6 +65,7 @@ public class LoginController {
 
         } else {
             labelPromptError(loginPair.value());
+            tfError();
         }
     }
 

@@ -77,6 +77,13 @@ public class GuiHandler {
     }
 
     /**
+     * Loads all the fonts in the font resource folder so that the css styling can be applied properly.
+     */
+    public void loadFonts() {
+
+    }
+
+    /**
      * Responsible for creating/returning the {@link GuiHandler} instance, as the class must be a singleton
      * @return {@link GuiHandler} instance
      */
