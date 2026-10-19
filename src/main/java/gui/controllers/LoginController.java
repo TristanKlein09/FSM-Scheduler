@@ -67,7 +67,7 @@ public class LoginController {
     }
 
     /**
-     * This method is used to change the text & passoword fields colour to show the user that an error has occurred.
+     * This method is used to change the text & password fields colour to show the user that an error has occurred.
      */
     private void tfError() {
         this.tfPassword.getStyleClass().add("password-field-error");
@@ -107,11 +107,10 @@ public class LoginController {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
 
-        buttonSetLoading();
-
         //If we do not make it run on a new thread, the application hangs momentarily and stops responding
         new Thread(() -> {
             try {
+                Platform.runLater(this::buttonSetLoading);
                 //Determining whether the user is permitted to log in
                 HttpClient httpClient = HttpClient.getInstance();
                 Pair<Boolean, String> loginPair = httpClient.login(username, password);
@@ -120,9 +119,14 @@ public class LoginController {
                     //Load the scheduler main view and close the login view
                     GuiHandler guiHandler = GuiHandler.getInstance();
                     Stage stage = (Stage) this.buttonLogin.getScene().getWindow();
-                    guiHandler.closeView(stage);
-                    guiHandler.loadMainView();
-
+                    Platform.runLater(() -> {
+                        try {
+                            guiHandler.closeView(stage);
+                            guiHandler.loadMainView();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
                 } else {
                     Platform.runLater(() -> {
                         buttonRestoreLoading();
