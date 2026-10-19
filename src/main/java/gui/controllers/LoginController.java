@@ -31,7 +31,7 @@ public class LoginController {
      */
     private void labelPromptError(String text) {
         this.labelPrompt.setText(text);
-        this.labelPrompt.getStyleClass().add("label-prompt-error");
+        this.labelPrompt.getStyleClass().add("label-error");
     }
 
     /**
@@ -51,22 +51,32 @@ public class LoginController {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
 
+        //If we do not make it run on a new thread, the application hangs momentarily and stops responding
+        new Thread(() -> {
+            try {
+                //Determining whether the user is permitted to log in
+                HttpClient httpClient = HttpClient.getInstance();
+                Pair<Boolean, String> loginPair = httpClient.login(username, password);
 
-        //Determining whether the user is permitted to log in
-        HttpClient httpClient = HttpClient.getInstance();
-        Pair<Boolean, String> loginPair = httpClient.login(username, password);
+                if (loginPair.key()) {
+                    //Load the scheduler main view and close the login view
+                    GuiHandler guiHandler = GuiHandler.getInstance();
+                    Stage stage = (Stage) this.buttonLogin.getScene().getWindow();
+                    guiHandler.closeView(stage);
+                    guiHandler.loadMainView();
 
-        if (loginPair.key()) {
-            //Load the scheduler main view and close the login view
-            GuiHandler guiHandler = GuiHandler.getInstance();
-            Stage stage = (Stage) this.buttonLogin.getScene().getWindow();
-            guiHandler.closeView(stage);
-            guiHandler.loadMainView();
+                } else {
+                    labelPromptError(loginPair.value());
+                    tfError();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        } else {
-            labelPromptError(loginPair.value());
-            tfError();
-        }
+        }).start();
+
+
+
     }
 
     /**
