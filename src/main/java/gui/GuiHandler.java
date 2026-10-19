@@ -76,21 +76,6 @@ public class GuiHandler {
         stage.close();
     }
 
-    /**
-     * Loads all the fonts in the font resource folder so that the css styling can be applied properly.
-     */
-    public void loadFonts() {
-        //14 is set as a default size - it can always be changed
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Black.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Bold.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-ExtraBold.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-ExtraLight.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Light.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Medium.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Regular.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-SemiBold.ttf"), 14);
-        Font.loadFont(getClass().getResourceAsStream("/fonts/RobotoSlab-Thin.ttf"), 14);
-    }
 
     /**
      * Responsible for creating/returning the {@link GuiHandler} instance, as the class must be a singleton

@@ -2,20 +2,27 @@
     /* Setting css variables */
 
     /* ----- Colours ----- */
-    -primary: #4EA1E8;
-    -primary-variant: #99D0FF;
-    -primary-hover: #3492e5;
-    -primary-select: #1d86e2;
+
+    -primary: #03A9F4;
+    -primary-light: #B3E5FC;
+    -primary-dark: #0288D1;
+    -primary-hover: #05a2eb;
+    -primary-select: #0694d6;
+
+    -accent: #ffc107;
 
     -colour-error: #ff1212;
 
-    -background: #e2e2e2;
-    -surface: #FFFFFF;
+    -background: #fdfdfd;
+    -surface: #ffffff;
+    -divider: #dedede;
+    -darker: #cccccc;
 
-    -text-primary: #0A0E15;
+    -text-primary: #212121;
+    -text-secondary: #757575;
 }
 .anchor-pane {
-    -fx-background-color: -surface;
+    -fx-background-color: -background;
 }
 
 /* ----- Buttons ----- */
@@ -24,8 +31,7 @@
     -fx-background-radius: 10;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 2);
-    -fx-font-family: "Roboto Slab Medium";
-    -font-size: 16px;
+    -fx-font-size: 14px;
 }
 
 .button:hover {
@@ -60,17 +66,18 @@
 
 .label-title {
     -fx-font-size: 32px;
-    -fx-font-family: "Roboto Slab SemiBold";
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
 }
 
 .label-subtitle {
-    -fx-font-size: 16px;
-    -fx-font-family: "Roboto Slab";
+    -fx-font-size: 20px;
+    -fx-text-fill: -text-primary;
 }
 
 .label-info {
-    -fx-font-size: 14px;
-    -fx-font-family: "Roboto Slab";
+    -fx-font-size: 16px;
+    -fx-text-fill: -text-primary;
 }
 
 .label-error {
@@ -78,3 +85,53 @@
 }
 
 /* ----- MENU ----- */
+.menu-bar {
+    -fx-background-color: -divider;
+    -fx-background-radius: 0 0 12 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 6, 0, 0, 2);
+    -fx-text-fill: -text-primary;
+}
+
+.menu {
+    -fx-text-fill: -text-primary;
+}
+.menu > .label {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 13px;
+}
+
+.menu:hover {
+    -fx-background-color: -darker;
+}
+.menu:hover > .label {
+    -fx-text-fill: -text-primary;
+}
+
+/* Pressed */
+.menu:armed {
+    -fx-background-color: -darker;
+}
+.menu:armed > .label {
+    -fx-text-fill: -text-primary;
+}
+
+.menu:showing {
+    -fx-background-color: -darker;
+}
+.menu:showing > .label {
+    -fx-text-fill: -text-primary;
+}
+
+.menu-item:focused {
+    -fx-background-color: -darker;
+}
+.menu-item:focused > .label{
+    -fx-text-fill: -text-primary;
+}
+
+.menu-item {
+}
+
+.separator {
+    -fx-background-color: -divider;
+}
