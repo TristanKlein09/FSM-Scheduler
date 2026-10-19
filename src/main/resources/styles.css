@@ -56,20 +56,25 @@
     -fx-border-width: 1;
 }
 
-/* ----- Labels ----- */
+/* ----- LABELS ----- */
 
 .label-title {
-
+    -fx-font-size: 32px;
+    -fx-font-family: "Roboto Slab SemiBold";
 }
 
 .label-subtitle {
-
+    -fx-font-size: 16px;
+    -fx-font-family: "Roboto Slab";
 }
 
 .label-info {
-
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto Slab";
 }
 
 .label-error {
     -fx-text-fill: -colour-error;
 }
+
+/* ----- MENU ----- */
