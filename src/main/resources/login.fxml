@@ -39,6 +39,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -84,10 +85,10 @@
                   <Insets bottom="1.0" left="9.0" right="140.0" top="1.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
+            <PasswordField fx:id="tfPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
                <VBox.margin>
                   <Insets bottom="7.0" />
-               </VBox.margin></TextField>
+               </VBox.margin></PasswordField>
             <Button fx:id="buttonLogin" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginPress" prefHeight="30.0" prefWidth="200.0" stylesheets="@styles.css" text="Login">
                <VBox.margin>
                   <Insets top="5.0" />

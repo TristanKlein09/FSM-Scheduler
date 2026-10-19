@@ -6,15 +6,12 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Pair;
-import util.Util;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginController {
 
     @FXML private TextField tfUsername;
-    @FXML private TextField tfPassword;
+    @FXML private PasswordField tfPassword;
     @FXML private Button buttonLogin;
     @FXML private Label labelPrompt;
     @FXML private MenuItem mitemSettings;
@@ -70,15 +67,35 @@ public class LoginController {
     }
 
     /**
-     * This method is used to change the text fields colour to show the user that an error has occurred.
+     * This method is used to change the text & passoword fields colour to show the user that an error has occurred.
      */
     private void tfError() {
-        this.tfPassword.getStyleClass().add("text-field-error");
+        this.tfPassword.getStyleClass().add("password-field-error");
         this.tfUsername.getStyleClass().add("text-field-error");
     }
 
-    private void expandTextField() {
+    /**
+     * This method changes the buttons graphic to a {@link ProgressIndicator} to indicate that something is loading.
+     */
+    private void buttonSetLoading() {
+        ProgressIndicator circle = new ProgressIndicator();
+        circle.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+        circle.setPrefSize(24, 24);
 
+        buttonLogin.getStyleClass().add("login-button");
+        buttonLogin.setGraphic(circle);
+        buttonLogin.setText("");
+        buttonLogin.setDisable(true);
+    }
+
+    /**
+     * This method removes any graphic from the button to restore it to its original state.
+     */
+    private void buttonRestoreLoading() {
+        buttonLogin.getStyleClass().remove("login-button");
+        buttonLogin.setGraphic(null);
+        buttonLogin.setText("Login");
+        buttonLogin.setDisable(false);
     }
 
     //----- On Action Methods -----
@@ -89,6 +106,8 @@ public class LoginController {
         System.out.println("Pressed Login Button");
         String username = tfUsername.getText();
         String password = tfPassword.getText();
+
+        buttonSetLoading();
 
         //If we do not make it run on a new thread, the application hangs momentarily and stops responding
         new Thread(() -> {
@@ -105,8 +124,11 @@ public class LoginController {
                     guiHandler.loadMainView();
 
                 } else {
-                    labelPromptError(loginPair.value());
-                    tfError();
+                    Platform.runLater(() -> {
+                        buttonRestoreLoading();
+                        labelPromptError(loginPair.value());
+                        tfError();
+                    });
                 }
             } catch (Exception e) {
                 e.printStackTrace();

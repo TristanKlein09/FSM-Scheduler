@@ -55,12 +55,12 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfIPAddress" minHeight="-Infinity" prefHeight="30.0" prefWidth="217.0" styleClass="text-field" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="tfIPAddress" minHeight="-Infinity" prefHeight="30.0" prefWidth="215.0" styleClass="text-field" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="tfPort" minHeight="-Infinity" prefHeight="30.0" styleClass="text-field" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="tfPort" minHeight="-Infinity" prefHeight="30.0" prefWidth="215.0" styleClass="text-field" stylesheets="@styles.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>

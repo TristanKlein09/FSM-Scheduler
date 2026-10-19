@@ -43,7 +43,15 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0, 0.15), 3, 0, 0, 1);
  }
 
-/* ----- Text Fields ----- */
+.button.login-button:disabled {
+    -fx-opacity: 1.0;
+}
+.login-button .progress-indicator {
+    -fx-progress-color: #000000;
+    -fx-opacity: 1.0;
+}
+
+/* ----- Text & Password Fields ----- */
 .text-field {
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-border-color: transparent transparent -text-primary transparent;
@@ -58,6 +66,25 @@
 }
 
 .text-field-error {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -colour-error transparent;
+    -fx-border-width: 1;
+}
+
+.password-field {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+}
+
+.password-field:focused {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent transparent -text-primary transparent;
+    -fx-border-width: 2;
+}
+
+.password-field-error {
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-border-color: transparent transparent -colour-error transparent;
     -fx-border-width: 1;
@@ -135,4 +162,8 @@
 
 .separator {
     -fx-background-color: -divider;
+}
+
+.progress-indicator {
+    -fx-progress-color: black;
 }
