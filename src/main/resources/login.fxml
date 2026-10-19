@@ -74,7 +74,7 @@
                   <String fx:value="label-info" />
                </styleClass>
             </Label>
-            <TextField fx:id="tfUsername" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
+            <TextField fx:id="tfUsername" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
                <VBox.margin>
                   <Insets bottom="7.0" />
                </VBox.margin>
@@ -84,13 +84,13 @@
                   <Insets bottom="1.0" left="9.0" right="140.0" top="1.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfPassword" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
-               <padding>
-                  <Insets top="1.0" />
-               </padding></TextField>
+            <TextField fx:id="tfPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="200.0" styleClass="text-field" stylesheets="@styles.css">
+               <VBox.margin>
+                  <Insets bottom="7.0" />
+               </VBox.margin></TextField>
             <Button fx:id="buttonLogin" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginPress" prefHeight="30.0" prefWidth="200.0" stylesheets="@styles.css" text="Login">
                <VBox.margin>
-                  <Insets top="12.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
                <font>
                   <Font size="14.0" />

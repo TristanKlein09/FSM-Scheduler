@@ -2,12 +2,17 @@ package gui.controllers;
 
 import client.HttpClient;
 import gui.GuiHandler;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.Pair;
 import util.Util;
 
@@ -23,6 +28,36 @@ public class LoginController {
     @FXML private MenuItem mitemSettings;
     @FXML private MenuItem mitemClose;
     @FXML private MenuItem mitemAbout;
+
+    @FXML
+    public void initialize() {
+        //----- Animating text fields -----
+        tfUsername.focusedProperty().addListener((obs, oldVal, focused) -> {
+            Timeline animation = new Timeline(
+                    new KeyFrame(Duration.millis(200),
+                            new KeyValue(
+                                    tfUsername.prefWidthProperty(), //The property to animate
+                                    focused ? 220 : 200, //New Length, Original Length
+                                    Interpolator.EASE_BOTH //Type of animation
+                            )
+                    )
+            );
+            animation.play();
+        });
+
+        tfPassword.focusedProperty().addListener((obs, oldVal, focused) -> {
+            Timeline animation = new Timeline(
+                    new KeyFrame(Duration.millis(200),
+                            new KeyValue(
+                                    tfPassword.prefWidthProperty(),
+                                    focused ? 220 : 200,
+                                    Interpolator.EASE_BOTH
+                            )
+                    )
+            );
+            animation.play();
+        });
+    }
 
     /**
      * This method is used to change the labelPrompt's text to show the user that an error has occurred. It changes the
@@ -40,6 +75,10 @@ public class LoginController {
     private void tfError() {
         this.tfPassword.getStyleClass().add("text-field-error");
         this.tfUsername.getStyleClass().add("text-field-error");
+    }
+
+    private void expandTextField() {
+
     }
 
     //----- On Action Methods -----
