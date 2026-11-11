@@ -47,7 +47,7 @@ public class HttpResponse {
             String[] statusLineArray = this.statusLine.split(" "); //Splits status line into an array
 
             this.httpVersion = statusLineArray[0];
-            this.status = HttpStatus.fromCode(Integer.parseInt(statusLineArray[1])); //TODO: Double check to see if this works
+            this.status = HttpStatus.fromCode(Integer.parseInt(statusLineArray[1]));
 
             System.out.println(this.httpVersion);
             System.out.println(this.status);

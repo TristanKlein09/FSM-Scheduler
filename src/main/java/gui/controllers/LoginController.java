@@ -100,7 +100,6 @@ public class LoginController {
 
     //----- On Action Methods -----
 
-    //TODO: Display some sort of loading animation when waiting for the server response
     @FXML
     private void onLoginPress() throws ExecutionException, InterruptedException, IOException {
         System.out.println("Pressed Login Button");

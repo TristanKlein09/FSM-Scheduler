@@ -18,8 +18,6 @@ public class HttpClient {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    //TODO: Figure out what to put for host
-    //TODO: Figure out how to keep the connection alive on the client side
     public void startClient() {
         try {
             this.clientSocket =  new Socket(Util.retrieveProperty("server.ip"), Integer.parseInt(Util.retrieveProperty("server.port")));
@@ -134,7 +132,7 @@ public class HttpClient {
                     "password", password
             ));
 
-            HttpRequest request = new HttpRequest("POST", "/models/login", "", "text/plain", "application/json", "keep-alive", body);
+            HttpRequest request = new HttpRequest("POST", "/models/login", "Desktop-scheduler", "text/plain", "application/json", "keep-alive", body);
             sendHttpRequestObj(request);
 
         } catch (Exception e) {
