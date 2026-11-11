@@ -19,12 +19,10 @@ public class HttpRequest {
     //Headers
     private String host; //Host the client is requesting
     private String userAgent = "Scheduler Desktop"; //Sort of software made the request
-    //TODO: Check if accept header can be 'premade'
     private String accept; //Sort of content the client can accept
     private String contentType; //Format of the request body
     private int contentLength; //Length of the request body
     private String connection; //Connection type (keep-alive, close, etc.)
-    private String authorization; //Authorization header (if present) - TODO: Figure out if needed
 
     //Body
     private String body;
@@ -170,14 +168,6 @@ public class HttpRequest {
 
     public void setConnection(String connection) {
         this.connection = connection;
-    }
-
-    public String getAuthorization() {
-        return authorization;
-    }
-
-    public void setAuthorization(String authorization) {
-        this.authorization = authorization;
     }
 
     public String getBody() {
